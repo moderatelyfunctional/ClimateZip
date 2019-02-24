@@ -25,41 +25,23 @@ def index(request):
 geodesic_distance = 250
 csv_directory = '../data/cities'
 def city(request):
-	# city = request.POST.get('city')
-	city = 'Boston'
+	city = request.POST.get('city')
 	city = whitespace.join(city.split('-'))
 	current_year = datetime.datetime.now().year
 	
 	context = dict()
+
+	curr_vector, closest_name, closest_vector, _ = _fetch_closest_city(city, geodesic_distance, current_year, current_year)
+	future_vector, future_closest_name, future_closest_vector, _ = _fetch_closest_city(city, geodesic_distance, current_year + 20, current_year)
+
 	context['curr_city'] = city
-	context['curr_closest_city'] = 'Avonia'
-	context['future_closest_city'] = 'Cleveland'
-	context['curr_city_vector'] = [
-		267.67416115, 269.29780304, 272.58108591, 279.30060175, 285.2087528, 
-		290.30176616, 293.38537176, 292.76265772, 288.67411446, 282.8672093,
-		276.91082229, 271.05843826,  44.77888229
-	][:12]
-	context['future_city_vector'] = [
-		267.86298470, 269.26587533, 273.43290324, 279.08227727, 285.45256640,
-		290.68952068, 293.53932403, 293.24902381, 289.04374378, 283.38938095,
-		277.69435394, 271.47222493,  44.73726461
-	][:12]
-	context['curr_closest_vector'] = [
-		266.63698689, 268.92019236, 271.90480456, 279.50976750, 285.46610069,
-		290.27800037, 293.20909721, 292.79895985, 289.28089382, 282.78832361,
-		275.97843218, 269.66620393, 44.64916603
-	][:12]
-	context['future_closest_vector'] = [
-		266.51687050, 269.42049013, 272.60715636, 280.11943563, 285.73797603,
-		290.73340453, 293.56845468, 293.20383933, 289.61790455, 283.04386196,
-		276.14572851, 269.60910812,  44.63776868][:12]
-
-	# closest_identifier, closest_vector, _ = _fetch_closest_city(city, geodesic_distance, current_year, current_year)
-	# future_closest_identifier, future_closest_vector, _ = _fetch_closest_city(city, geodesic_distance, current_year + 20, current_year)
-
-	# print('Now Boston is like {}. Ten years from now it will be like {}'.format(2, ids_to_cities[future_closest_identifier]))
+	context['curr_closest_city'] = closest_name
+	context['future_closest_city'] = future_closest_name
+	context['curr_city_vector'] = curr_vector.tolist()[:12]
+	context['future_city_vector'] = future_vector.tolist()[:12]
+	context['curr_closest_vector'] = closest_vector.tolist()[:12]
+	context['future_closest_vector'] = future_closest_vector.tolist()[:12]
 	return render(request, 'city.html', context)
-	return HttpResponse(json.dumps({'success': 'Transition to another view'}))
 
 def _fetch_city_vector(city_file, current_year):
 	curr_tasmax_vector = np.array([])
@@ -102,15 +84,15 @@ def _fetch_closest_city(city_name, geodesic_distance, current_year, other_curren
 			best_min_distance = curr_distance
 			best_min_vector = other_city_vector
 
-	return (curr_tasmax_vector, best_min_identifier, best_min_vector)
+	best_name = ids_to_cities[best_min_identifier]
+	return (curr_tasmax_vector, best_name, best_min_vector)
 
 def fetch_future_city_data(request):
 	city_name = request.POST.get('curr_city')
 	years_ahead = int(request.POST.get('years_ahead'))
 	current_year = datetime.datetime.now().year
 
-	future_vector, other_identifier, other_vector = _fetch_closest_city(city_name, geodesic_distance, current_year + years_ahead, current_year)
-	other_name = ids_to_cities[other_identifier]
+	future_vector, other_name, other_vector = _fetch_closest_city(city_name, geodesic_distance, current_year + years_ahead, current_year)
 	data = {
 		'future_city_vector': future_vector.tolist()[:12],
 		'other_name': other_name,
