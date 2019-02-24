@@ -17,7 +17,14 @@
 		<div id="city-container"  class="row">
 			<div class="city-header col-lg-3 col-md-3 col-sm-3">City:</div>
 			<div class="col-lg-9 col-md-9 col-sm-9">
-				<input class="city-input" type="text" name="city" placeholder="Choose A City" autocomplete="off" required>
+				<input id="city-input" class="city-input" type="text" name="city" placeholder="Choose A City" autocomplete="off" spellcheck="false" required>
+				<div id="city-autocomplete" class="hide">
+					{% for city in cities %}
+						<div id="autocomplete-{{ city }}" class="hide autocomplete-element">
+							{{ city }}
+						</div>
+					{% endfor %}
+				</div>
 			</div>
 		</div>
 	</div>
@@ -26,5 +33,5 @@
 {% endblock %}
 
 {% block contentJS %}
-<script src="static/climate_city/js"
+<script src="static/climate_city/js/index.js"></script>
 {% endblock %}

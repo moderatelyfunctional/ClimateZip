@@ -14,7 +14,7 @@
 #city-container {
 	height: 120px;
 	padding-right: 20px;
-	
+
 	display: flex;
 	flex-flow: row wrap;
 	align-items: center;
@@ -47,4 +47,25 @@
 	outline: none;
 	background-color: #303030;
 }
+
+#city-autocomplete {
+	position: absolute;
+	max-height: 280px;
+	width: calc(100% - 30px);
+	background-color: #dedede;
+	overflow-y: scroll;
+
+}
+
+.autocomplete-element {
+	padding: 5px;
+	cursor: pointer;
+}
+
+.autocomplete-element:hover {
+	background-color: #cecece;
+}
+
+
+
 
