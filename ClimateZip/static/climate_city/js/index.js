@@ -27,13 +27,14 @@ const ajaxEnterCity = function(e) {
 		const city_identifier = '#autocomplete-' + cities[i];
 		if ((cities[i].toLowerCase()).indexOf(curr_value.toLowerCase()) != -1) {
 			$(city_identifier).removeClass('hide');
+			console.log('some matches');
 		} else {
 			any_match = true;
 			$(city_identifier).addClass('hide');
 		}
 	}
 	if (!any_match) {
-		$('#city-autocomplete').addClass('hide');	
+		$('#city-autocomplete').addClass('hide');
 	} else {
 		$('#city-autocomplete').removeClass('hide');
 	}

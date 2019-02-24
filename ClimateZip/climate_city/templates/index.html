@@ -21,8 +21,8 @@
 					<input id="city-input" class="city-input" type="text" name="city_field" placeholder="Choose A City" autocomplete="off" spellcheck="false" required>
 					<div id="city-autocomplete" class="hide">
 						{% for city in cities %}
-							<div id="autocomplete-{{ city }}" class="hide autocomplete-element">
-								{{ city }}
+							<div id="autocomplete-{{ city.0 }}" class="hide autocomplete-element">
+								{{ city.0 }}, {{ city.1 }}
 							</div>
 						{% endfor %}
 					</div>

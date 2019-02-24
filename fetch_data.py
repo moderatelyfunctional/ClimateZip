@@ -8,7 +8,7 @@ AZAVEA_CITY_DATA_URL = 'https://app.climate.azavea.com/api/climate-data/{}/RCP85
 
 ID_TO_CITY = dict()
 CITY_TO_LATLON = dict()
-CITY_TO_STATE = dict()
+CITY_TO_STATE = []
 
 with open('secret.txt', 'r') as secret:
 	AZAVEA_KEY = secret.read().strip()
@@ -19,9 +19,12 @@ with open('data/cities.csv', 'r', encoding="utf-8") as cities_mapping:
 	for city in cities_reader:
 		ID_TO_CITY[city[0]] = city[1]
 		CITY_TO_LATLON[city[0]] = (city[3], city[2])
-		CITY_TO_STATE[city[1].encode('utf-8').strip()] = city[4]
+
+		print(city[1])
+		CITY_TO_STATE.append((city[1], city[4]))
 
 # city_ids = ID_TO_CITY.keys()
+
 print(CITY_TO_STATE)
 
 # for city_id in city_ids:
