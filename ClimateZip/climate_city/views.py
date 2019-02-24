@@ -22,38 +22,18 @@ def index(request):
 	context['cities'] = cities
 	return render(request, 'index.html', context)
 
+geodesic_distance = 250
 csv_directory = '../data/cities'
 def city(request):
 	# city = request.POST.get('city')
 	city = 'Boston'
 	city = whitespace.join(city.split('-'))
-	city_identifier = cities_to_ids[city]
-	city_file = '{}_tasmax.csv'.format(city_identifier)
 	current_year = datetime.datetime.now().year
 
-	curr_latlon = cities_to_latlon[city_identifier]
-	curr_tasmax_vector = _fetch_city_vector(city_file, current_year)
-	
-	min_distances = []
-	for csv_file in os.listdir(csv_directory):
-		if csv_file == city_file:
-			continue
-		other_identifier = csv_file[:csv_file.find('_')]
-		other_latlon = cities_to_latlon[other_identifier]
-		
-		if geodesic(curr_latlon, other_latlon).miles < 250:
-			continue
+	# closest_identifier, closest_vector, _ = _fetch_closest_city(city, geodesic_distance, current_year, current_year)
+	# future_closest_identifier, future_closest_vector, _ = _fetch_closest_city(city, geodesic_distance, current_year + 10, current_year)
 
-		other_city_vector = _fetch_city_vector(csv_file, current_year)
-		curr_distance = np.sum(np.abs(curr_tasmax_vector - other_city_vector))
-		min_distances.append((other_identifier, curr_distance))
-
-	min_distances = sorted(min_distances, key=lambda element: element[1])
-	closest_city = ids_to_cities[min_distances[0][0]]
-
-	for (city_id, distance) in min_distances[:10]:
-		print('City {} Distance {}'.format(ids_to_cities[city_id], distance))
-
+	# print('Now Boston is like {}. Ten years from now it will be like {}'.format(ids_to_cities[closest_identifier], ids_to_cities[future_closest_identifier]))
 	return HttpResponse(json.dumps({'success': 'Transition to another view'}))
 
 def _fetch_city_vector(city_file, current_year):
@@ -72,6 +52,40 @@ def _fetch_city_vector(city_file, current_year):
 
 	return curr_tasmax_vector
 
+def _fetch_closest_city(city_name, geodesic_distance, current_year, other_current_year):
+	city_identifier = cities_to_ids[city_name]
+	city_file = '{}_tasmax.csv'.format(city_identifier)
+
+	curr_latlon = cities_to_latlon[city_identifier]
+	curr_tasmax_vector = _fetch_city_vector(city_file, current_year)
+	
+	# min_distances = []
+	best_min_identifier = None
+	best_min_vector = None
+	best_min_distance = float('inf')
+	for csv_file in os.listdir(csv_directory):
+		if csv_file == city_file:
+			continue
+		other_identifier = csv_file[:csv_file.find('_')]
+		other_latlon = cities_to_latlon[other_identifier]
+		
+		if geodesic(curr_latlon, other_latlon).miles < geodesic_distance:
+			continue
+
+		other_city_vector = _fetch_city_vector(csv_file, other_current_year)
+		curr_distance = np.sum(np.abs(curr_tasmax_vector - other_city_vector))
+		if best_min_distance > curr_distance:
+			best_min_identifier = other_identifier
+			best_min_distance = curr_distance
+			best_min_vector = other_city_vector
+
+		# min_distances.append((other_identifier, curr_distance))
+	# min_distances = sorted(min_distances, key=lambda element: element[1])
+	# closest_city = ids_to_cities[min_distances[0][0]]
+	# for (city_id, distance) in min_distances[:10]:
+	# 	print('City {} Distance {}'.format(ids_to_cities[city_id], distance))
+
+	return (best_min_identifier, best_min_vector, best_min_distance)
 
 
 
