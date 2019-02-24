@@ -22,5 +22,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', climate_city.views.index, name=''),
     path('city/', climate_city.views.city, name='city'),
+    path('visualize/<str:curr_city>/<str:future_city>/', climate_city.views.visualize),
     path('fetch_future_city_data/', climate_city.views.fetch_future_city_data, name='fetch_future_city_data')
 ]

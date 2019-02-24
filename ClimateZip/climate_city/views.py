@@ -106,7 +106,14 @@ def fetch_future_city_data(request):
 	}
 	return HttpResponse(json.dumps(data), content_type='application/json')
 
+def visualize(request, curr_city, future_city):
+	context = dict()
+	context['curr_city_lat'] = float(cities_to_latlon[cities_to_ids[curr_city]][0])
+	context['curr_city_lon'] = float(cities_to_latlon[cities_to_ids[curr_city]][1])
 
+	context['future_city_lat'] = float(cities_to_latlon[cities_to_ids[future_city]][0])
+	context['future_city_lon'] = float(cities_to_latlon[cities_to_ids[future_city]][1])
+	return render(request, 'visualize.html', context)
 
 
 
