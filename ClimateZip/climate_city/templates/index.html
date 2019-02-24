@@ -6,7 +6,7 @@
 
 {% block background %}
 <div style="position: absolute; top: 0; z-index: -99; width: 100%; height: 100%">
-	<iframe width="100%" height="100%" src="https://www.youtube.com/embed/VUBcBY_YaFI?autoplay=1&loop=1&controls=0&playlist=VUBcBY_YaFI&amp;start=100&end=120" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+	<iframe width="100%" height="100%" src="https://www.youtube.com/embed/VUBcBY_YaFI?autoplay=1&loop=1&mute=1&controls=0&playlist=VUBcBY_YaFI&amp;start=103&end=120" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </div>
 {% endblock %}
 
@@ -17,10 +17,14 @@
 		<div id="city-container"  class="row">
 			<div class="city-header col-lg-3 col-md-3 col-sm-3">City:</div>
 			<div class="col-lg-9 col-md-9 col-sm-9">
-				<input class="city-input" type="text" name="city" placeholder="Choose A City" required>
+				<input class="city-input" type="text" name="city" placeholder="Choose A City" autocomplete="off" required>
 			</div>
 		</div>
 	</div>
 	<div class="col-lg-3 col-md-2 col-sm-0"></div>
 </div>
+{% endblock %}
+
+{% block contentJS %}
+<script src="static/climate_city/js"
 {% endblock %}
