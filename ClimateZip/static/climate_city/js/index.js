@@ -14,7 +14,6 @@ const ajaxEnterCity = function(e) {
 		return;
 	}
 	if (e.which == 13) {
-		console.log('Execute ajax request');
 		ajaxSubmitCity(curr_value);
 		return;
 	}
@@ -52,12 +51,8 @@ const _ajaxSubmitCity = function(city_identifier) {
 		data: { city: city_identifier },
 		dataType: 'json',
 		success: function() {
-			console.log('Some response back');
 			window.location.href = '/somewhere_else/'
 		},
-		error: function() {
-			console.log('Error here');
-		}
 	})
 }
 

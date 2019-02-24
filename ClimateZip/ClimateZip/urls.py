@@ -21,5 +21,5 @@ import climate_city.views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', climate_city.views.index, name=''),
-    path('city/', climate_city.views.city, name='city')
+    path('city/', climate_city.views.city, name='city'),
 ]
