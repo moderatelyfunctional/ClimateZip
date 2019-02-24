@@ -18,7 +18,7 @@
 			<div class="city-header col-lg-3 col-md-3 col-sm-3">City:</div>
 			<div class="col-lg-9 col-md-9 col-sm-9">
 				<form id="city-form" action="/city/" method="post"> 
-					<input id="city-input" class="city-input" type="text" name="city" placeholder="Choose A City" autocomplete="off" spellcheck="false" required>
+					<input id="city-input" class="city-input" type="text" name="city_field" placeholder="Choose A City" autocomplete="off" spellcheck="false" required>
 					<div id="city-autocomplete" class="hide">
 						{% for city in cities %}
 							<div id="autocomplete-{{ city }}" class="hide autocomplete-element">

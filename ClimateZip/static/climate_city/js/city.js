@@ -65,6 +65,8 @@ const ajaxUpdateFutureConditions = function() {
 			future_chart.data.datasets[1].label = response['other_name'];
 			future_chart.data.datasets[1].data = converToFarenheit(response['future_closest_vector']);
 			future_chart.update();
+
+			$('#future-city').text(response['other_name']);
 		}
 	});
 }

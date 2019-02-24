@@ -40,7 +40,7 @@ const ajaxSubmitCity = function() {
 }
 
 const ajaxAutcompleteEnterCity = function() {
-	$('#city-input').val($(this).val());
+	$('#city-input').val($(this).text().replace(/\s/g, ""));
 	_ajaxSubmitCity();
 }
 

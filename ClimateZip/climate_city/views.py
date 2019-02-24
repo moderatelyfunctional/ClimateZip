@@ -25,14 +25,15 @@ def index(request):
 geodesic_distance = 250
 csv_directory = '../data/cities'
 def city(request):
-	city = request.POST.get('city')
+	city = request.POST.get('city_field')
 	city = whitespace.join(city.split('-'))
 	current_year = datetime.datetime.now().year
 	
 	context = dict()
 
-	curr_vector, closest_name, closest_vector, _ = _fetch_closest_city(city, geodesic_distance, current_year, current_year)
-	future_vector, future_closest_name, future_closest_vector, _ = _fetch_closest_city(city, geodesic_distance, current_year + 20, current_year)
+
+	curr_vector, closest_name, closest_vector = _fetch_closest_city(city, geodesic_distance, current_year, current_year)
+	future_vector, future_closest_name, future_closest_vector = _fetch_closest_city(city, geodesic_distance, current_year + 20, current_year)
 
 	context['curr_city'] = city
 	context['curr_closest_city'] = closest_name
