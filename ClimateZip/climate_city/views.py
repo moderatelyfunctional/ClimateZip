@@ -102,6 +102,7 @@ def fetch_future_city_data(request):
 	data = {
 		'future_city_vector': future_vector.tolist()[:12],
 		'other_name': other_name,
+		'other_state': cities_to_state[other_name.encode('utf-8').strip()],
 		'future_closest_vector': other_vector.tolist()[:12]
 	}
 	return HttpResponse(json.dumps(data), content_type='application/json')

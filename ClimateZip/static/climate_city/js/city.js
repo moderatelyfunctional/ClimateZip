@@ -67,6 +67,8 @@ const ajaxUpdateFutureConditions = function() {
 			future_chart.update();
 
 			$('#future-city').text(response['other_name']);
+			$('#future-state').text(response['other_state']);
+			$('#vis-link').attr('href', '/visualize/' + curr_city + '/' + response['other_name']);
 		}
 	});
 }

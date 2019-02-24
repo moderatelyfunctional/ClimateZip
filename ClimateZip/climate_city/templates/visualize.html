@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block contentCSS %}
+<link rel="stylesheet" href="/static/climate_city/css/visualize.css">
+{% endblock %}
+
+{% block content %}
+<span class="metadata-marker" style="display: none;" data-region_tag="html-body"></span>
+<div id="map"></div>
+{% endblock %}
+
+{% block contentJS %}
+<script>
+const curr_lat = {{ curr_city_lat }};
+const curr_lon = {{ curr_city_lon }};
+const future_lat = {{ future_city_lat }};
+const future_lon = {{ future_city_lon }};
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+<script src="/static/climate_city/js/visualize.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDk43vQ1bRrJSvXndIsaSu4NJicWCpL5Xw&callback=initMap" async defer></script>
+{% endblock %}
+
+
+
