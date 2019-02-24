@@ -35,7 +35,7 @@ def city(request):
 	context = dict()
 
 	curr_vector, closest_name, closest_vector = _fetch_closest_city(city, geodesic_distance, current_year, current_year)
-	future_vector, future_closest_name, future_closest_vector = _fetch_closest_city(city, geodesic_distance, current_year + 20, current_year)
+	future_vector, future_closest_name, future_closest_vector = _fetch_closest_city(city, geodesic_distance, current_year + 10, current_year)
 
 	context['curr_city'] = city
 	context['curr_city_state'] = cities_to_state[city.encode('utf-8').strip()]
