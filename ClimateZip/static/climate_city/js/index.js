@@ -14,7 +14,7 @@ const ajaxEnterCity = function(e) {
 		return;
 	}
 	if (e.which == 13) {
-		ajaxSubmitCity(curr_value);
+		ajaxSubmitCity();
 		return;
 	}
 
@@ -35,25 +35,17 @@ const ajaxEnterCity = function(e) {
 	}
 }
 
-const ajaxSubmitCity = function(city_identifier) {
-	_ajaxSubmitCity(city_identifier);
+const ajaxSubmitCity = function() {
+	_ajaxSubmitCity();
 }
 
 const ajaxAutcompleteEnterCity = function() {
-	city_identifier = $(this).attr('id');
-	_ajaxSubmitCity(city_identifier);
+	$('#city-input').val($(this).val());
+	_ajaxSubmitCity();
 }
 
-const _ajaxSubmitCity = function(city_identifier) {
-	$.ajax({
-		url: '/city/',
-		type: 'post',
-		data: { city: city_identifier },
-		dataType: 'json',
-		success: function() {
-			window.location.href = '/somewhere_else/'
-		},
-	})
+const _ajaxSubmitCity = function() {
+	$('#city-form').submit();
 }
 
 

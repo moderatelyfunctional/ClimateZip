@@ -83,7 +83,6 @@ def _fetch_closest_city(city_name, geodesic_distance, current_year, other_curren
 	curr_latlon = cities_to_latlon[city_identifier]
 	curr_tasmax_vector = _fetch_city_vector(city_file, current_year)
 	
-	# min_distances = []
 	best_min_identifier = None
 	best_min_vector = None
 	best_min_distance = float('inf')
@@ -103,14 +102,21 @@ def _fetch_closest_city(city_name, geodesic_distance, current_year, other_curren
 			best_min_distance = curr_distance
 			best_min_vector = other_city_vector
 
-		# min_distances.append((other_identifier, curr_distance))
-	# min_distances = sorted(min_distances, key=lambda element: element[1])
-	# closest_city = ids_to_cities[min_distances[0][0]]
-	# for (city_id, distance) in min_distances[:10]:
-	# 	print('City {} Distance {}'.format(ids_to_cities[city_id], distance))
+	return (curr_tasmax_vector, best_min_identifier, best_min_vector)
 
-	return (best_min_identifier, best_min_vector, best_min_distance)
+def fetch_future_city_data(request):
+	city_name = request.POST.get('curr_city')
+	years_ahead = int(request.POST.get('years_ahead'))
+	current_year = datetime.datetime.now().year
 
+	future_vector, other_identifier, other_vector = _fetch_closest_city(city_name, geodesic_distance, current_year + years_ahead, current_year)
+	other_name = ids_to_cities[other_identifier]
+	data = {
+		'future_city_vector': future_vector.tolist()[:12],
+		'other_name': other_name,
+		'future_closest_vector': other_vector.tolist()[:12]
+	}
+	return HttpResponse(json.dumps(data), content_type='application/json')
 
 
 

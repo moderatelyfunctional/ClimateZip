@@ -21,7 +21,7 @@
 			<select id="selectYears">
 				<option>10</option>
 				<option>15</option>
-				<option>20</option>
+				<option selected>20</option>
 			</select>
 			years...
 		</div>
@@ -48,7 +48,8 @@
 			const celsius = vector[i] -273.15;
 			const farenheit = celsius * 9/5 + 32;
 			vector[i] = farenheit;
-		}	
+		}
+		return vector;
 	}
 	converToFarenheit(curr_city_vector);
 	converToFarenheit(future_city_vector);

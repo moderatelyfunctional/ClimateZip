@@ -1,3 +1,4 @@
+let future_chart;
 $(document).ready(function() {
 	createChart(
 		$('#currentConditions'), 
@@ -9,7 +10,7 @@ $(document).ready(function() {
 		'#55e585'
 	);
 
-	createChart(
+	future_chart = createChart(
 		$('#futureConditions'),
 		curr_city,
 		future_city_vector,
@@ -47,16 +48,25 @@ const createChart = function(ctx, first_city, first_city_vector, first_color, se
             responsive: true,
 	    }
 	});
+	return chart
 }
 
 const ajaxUpdateFutureConditions = function() {
 	const value = $(this).val();
-	
-
-
-
-
-
+	$.ajax({
+		url: '/fetch_future_city_data/',
+		type: 'post',
+		data: { 
+			curr_city: curr_city,
+			years_ahead: value 
+		},
+		success: function(response) {
+			future_chart.data.datasets[0].data = converToFarenheit(response['future_city_vector']);
+			future_chart.data.datasets[1].label = response['other_name'];
+			future_chart.data.datasets[1].data = converToFarenheit(response['future_closest_vector']);
+			future_chart.update();
+		}
+	});
 }
 
 
