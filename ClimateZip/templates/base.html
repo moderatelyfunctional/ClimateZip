@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="utf-8">
 	    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-		<title>Caro</title>
+		<title>Climate Buddy</title>
 		{% if user.is_authenticated %}
 		{% endif %}
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
@@ -50,12 +50,12 @@
 		{% endblock %}
 
 		<div id="container" class="row col-lg-12 col-md-12 col-sm-12">
-			<div class="col-lg-2 col-md-2 col-sm-0"></div>
-			<div class="col-lg-8 col-md-8 col-sm-12">
+			<div class="col-lg-1 col-md-1 col-sm-0"></div>
+			<div class="col-lg-10 col-md-10 col-sm-12">
 				{% block content %}
 				{% endblock %}
 			</div>
-			<div class="col-lg-2 col-md-2 col-sm-0"></div>
+			<div class="col-lg-1 col-md-1 col-sm-0"></div>
 		</div>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js"></script>

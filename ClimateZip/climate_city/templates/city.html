@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% block contentCSS %}
+<link rel="stylesheet" href="/static/climate_city/css/city.css">
+{% endblock %}
+
+{% block content %}
+<div class="vcenter-container row">
+	<div class="col-lg-6 col-md-6 col-sm-6">
+		<div class="city-header col-lg-12 col-md-12 col-sm-12">
+			Right now...
+		</div>
+		<div class="city-header col-lg-12 col-md-12 col-sm-12">
+			{{ curr_city }}'s climate conditions are very similar to {{ curr_closest_city }}'s.
+		</div>
+		<canvas id="currentConditions" height="200px"></canvas>
+	</div>
+	<div class="col-lg-6 col-md-6 col-sm-6">
+		<div class="city-header col-lg-12 col-md-12 col-sm-12">
+			In
+			<select id="selectYears">
+				<option>10</option>
+				<option>15</option>
+				<option>20</option>
+			</select>
+			years...
+		</div>
+		<div class="city-header col-lg-12 col-md-12 col-sm-12">
+			{{ curr_city }}'s climate conditions are very similar to present day <span id="future-city">{{ future_closest_city }}</span>.
+		</div>
+		<canvas id="futureConditions" height="200px"></canvas>
+	</div>
+{% endblock %}
+
+{% block contentJS %}
+<script>
+	const curr_city = '{{ curr_city }}';
+	const curr_closest_city = '{{ curr_closest_city }}';
+	const future_closest_city = '{{ future_closest_city }}';
+
+	const curr_city_vector = {{ curr_city_vector }};
+	const future_city_vector = {{ future_city_vector }};
+	const curr_closest_vector = {{ curr_closest_vector }};
+	const future_closest_vector = {{ future_closest_vector }};
+
+	const converToFarenheit = function(vector) {
+		for (let i = 0; i < vector.length; i++) {
+			const celsius = vector[i] -273.15;
+			const farenheit = celsius * 9/5 + 32;
+			vector[i] = farenheit;
+		}	
+	}
+	converToFarenheit(curr_city_vector);
+	converToFarenheit(future_city_vector);
+	converToFarenheit(curr_closest_vector);
+	converToFarenheit(future_closest_vector);
+
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+<script src="/static/climate_city/js/city.js"></script>
+{% endblock %}
+
+
+

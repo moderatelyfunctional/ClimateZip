@@ -29,11 +29,36 @@ def city(request):
 	city = 'Boston'
 	city = whitespace.join(city.split('-'))
 	current_year = datetime.datetime.now().year
+	
+	context = dict()
+	context['curr_city'] = city
+	context['curr_closest_city'] = 'Avonia'
+	context['future_closest_city'] = 'Cleveland'
+	context['curr_city_vector'] = [
+		267.67416115, 269.29780304, 272.58108591, 279.30060175, 285.2087528, 
+		290.30176616, 293.38537176, 292.76265772, 288.67411446, 282.8672093,
+		276.91082229, 271.05843826,  44.77888229
+	][:12]
+	context['future_city_vector'] = [
+		267.86298470, 269.26587533, 273.43290324, 279.08227727, 285.45256640,
+		290.68952068, 293.53932403, 293.24902381, 289.04374378, 283.38938095,
+		277.69435394, 271.47222493,  44.73726461
+	][:12]
+	context['curr_closest_vector'] = [
+		266.63698689, 268.92019236, 271.90480456, 279.50976750, 285.46610069,
+		290.27800037, 293.20909721, 292.79895985, 289.28089382, 282.78832361,
+		275.97843218, 269.66620393, 44.64916603
+	][:12]
+	context['future_closest_vector'] = [
+		266.51687050, 269.42049013, 272.60715636, 280.11943563, 285.73797603,
+		290.73340453, 293.56845468, 293.20383933, 289.61790455, 283.04386196,
+		276.14572851, 269.60910812,  44.63776868][:12]
 
 	# closest_identifier, closest_vector, _ = _fetch_closest_city(city, geodesic_distance, current_year, current_year)
-	# future_closest_identifier, future_closest_vector, _ = _fetch_closest_city(city, geodesic_distance, current_year + 10, current_year)
+	# future_closest_identifier, future_closest_vector, _ = _fetch_closest_city(city, geodesic_distance, current_year + 20, current_year)
 
-	# print('Now Boston is like {}. Ten years from now it will be like {}'.format(ids_to_cities[closest_identifier], ids_to_cities[future_closest_identifier]))
+	# print('Now Boston is like {}. Ten years from now it will be like {}'.format(2, ids_to_cities[future_closest_identifier]))
+	return render(request, 'city.html', context)
 	return HttpResponse(json.dumps({'success': 'Transition to another view'}))
 
 def _fetch_city_vector(city_file, current_year):
@@ -43,7 +68,6 @@ def _fetch_city_vector(city_file, current_year):
 	with open(city_file, 'r') as curr_tasmax_file:
 		tasmax_reader = csv.reader(curr_tasmax_file, delimiter=',')
 		for tasmax_data in tasmax_reader:
-			print(tasmax_data[0])
 			if int(tasmax_data[0]) != current_year:
 				continue
 
