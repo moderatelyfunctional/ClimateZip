@@ -11,7 +11,7 @@
 			Right now...
 		</div>
 		<div class="city-header col-lg-12 col-md-12 col-sm-12">
-			{{ curr_city }}'s climate conditions are very similar to {{ curr_closest_city }}'s.
+			{{ curr_city }} {{ curr_city_state }}'s climate conditions are very similar to {{ curr_closest_city }} {{ curr_closest_city_state }}.
 		</div>
 		<canvas id="currentConditions" height="200px"></canvas>
 	</div>
@@ -26,7 +26,7 @@
 			years...
 		</div>
 		<div class="city-header col-lg-12 col-md-12 col-sm-12">
-			{{ curr_city }}'s climate conditions are very similar to present day <span id="future-city">{{ future_closest_city }}</span>.
+			{{ curr_city }} {{ curr_city_state }} 's climate conditions are very similar to present day <span id="future-city">{{ future_closest_city }}</span> {{ future_closest_city_state }}.
 		</div>
 		<canvas id="futureConditions" height="200px"></canvas>
 	</div>
