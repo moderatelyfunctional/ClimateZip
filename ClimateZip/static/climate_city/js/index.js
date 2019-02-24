@@ -13,10 +13,6 @@ const ajaxEnterCity = function(e) {
 		$('#city-autocomplete').addClass('hide');
 		return;
 	}
-	if (e.which == 13) {
-		ajaxSubmitCity();
-		return;
-	}
 
 	let any_match = false;
 	for (let i = 0; i < cities.length; i++) {
