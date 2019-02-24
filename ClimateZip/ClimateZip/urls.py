@@ -16,6 +16,9 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
+import climate_city.views
+
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', climate_city.views.index, name='')
 ]

@@ -1,0 +1,65 @@
+<!DOCTYPE>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+	    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<title>Caro</title>
+		{% if user.is_authenticated %}
+		{% endif %}
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+		<link rel="stylesheet" href="/static/climatezip/css/base.css">
+		<link rel=icon href=/static/climatezip/imgs/logo4.png>
+		{% block contentCSS %}
+		{% endblock %}
+	</head>
+	<body>
+		{% block headerJS %}
+		{% endblock %}
+		<nav class="navbar navbar-expand-lg navbar-dark navbar-color" >
+			<a class="navbar-brand" href="/">
+				<img src="/static/climatezip/imgs/logo4.png" height="30" class="d-inline-block align-top">
+				Climate Buddy
+			</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarOptions" aria-controls="navbarOptions" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<!-- <div class="collapse navbar-collapse" id="navbarOptions">
+				<div class="navbar-nav">
+					<a class="nav-item nav-link active" href="/">Papers<span class="sr-only">(current)</span></a>
+					<a class="nav-item nav-link" href="#">New</a>
+					<a class="nav-item nav-link" href="#">Trending</a>
+					<a class="nav-item nav-link" href="#">Top</a>
+				</div>
+				<div class="nav navbar-nav ml-auto">
+					{% if request.user.is_authenticated %}
+						<li class="nav-item dropdown">
+							<a id="accountDropdown" class="nav-item nav-link" href="/account" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ request.user.name }}</a>
+							<div class="climate-dropdown dropdown-menu dropdown-menu-right" aria-labelledby="accountDropdown">
+								<a class="dropdown-item" href="/Account">Account</a>
+								<a class="dropdown-item" href="/logout">Log Out</a>
+							</div>
+						</li>
+					{% else %}
+						<a class="nav-item nav-link" href="/login">Login</a>
+					{% endif %}
+				</div>
+			</div> -->
+		</nav>
+
+		{% block background %}
+		{% endblock %}
+
+		<div id="container" class="row col-lg-12 col-md-12 col-sm-12">
+			<div class="col-lg-2 col-md-2 col-sm-0"></div>
+			<div class="col-lg-8 col-md-8 col-sm-12">
+				{% block content %}
+				{% endblock %}
+			</div>
+			<div class="col-lg-2 col-md-2 col-sm-0"></div>
+		</div>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js"></script>
+		{% block contentJS %}
+		{% endblock %}
+	</body>
+</html>

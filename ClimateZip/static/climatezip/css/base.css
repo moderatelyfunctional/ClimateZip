@@ -1,0 +1,28 @@
+.navbar-color {
+	background-color: black;
+}
+
+.climate-dropdown {
+	border-radius: 0;
+}
+
+.btn-width {
+	width: 100%
+}
+
+.btn-climate-primary {
+    color: white;
+    background-color: #75cff8;
+    border-color: #5bc2c2;
+}
+
+.btn-climate-primary:hover {
+    color: white;
+    background-color: #52c2f6;
+    border-color: #5bc2c2;
+}
+
+.btn-climate-primary:focus,
+.btn-climate-primary.focus {
+    box-shadow: 0 0 0 .2rem rgba(91, 194, 194, 0.5)
+}
