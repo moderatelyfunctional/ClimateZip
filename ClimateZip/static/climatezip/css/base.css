@@ -10,6 +10,10 @@
 	width: 100%
 }
 
+.v-container {
+    height: 100vh;
+}
+
 .btn-climate-primary {
     color: white;
     background-color: #75cff8;
